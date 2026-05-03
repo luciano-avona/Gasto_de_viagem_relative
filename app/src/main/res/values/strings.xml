@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">GastoViagemRelative</string>
+
+    <string name="distance">Distância</string>
+    <string name="total_km">Total de quilômetros</string>
+    <string name="price">Preço</string>
+    <string name="price_liter">Preço por litro</string>
+    <string name="autonomy">Autonomia</string>
+    <string name="kms_per_liter">Kms por litro</string>
+    <string name="total_expense">Seu gasto total será de:</string>
+    <string name="value_total">R$ 0</string>
+    <string name="caculate">Calcular</string>
+    <string name="autonomy_title">Cálculo de autonomia</string>
+    <string name="qtd_liters">Qtd de litros</string>
+    <string name="traveled_km">Km percorridos</string>
+    <string name="division">KM/LITRO</string>
+
+    <string name="validation_fill_all_fields">Preencha todos os campos.</string>
+    <string name="no_suprise_gas">Sem surpresas com combustível</string>
+</resources>
