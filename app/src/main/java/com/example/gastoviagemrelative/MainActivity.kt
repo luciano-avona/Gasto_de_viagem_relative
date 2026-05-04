@@ -10,54 +10,53 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.gastoviagemrelative.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.buttonCalculate.setOnClickListener(this)
         binding.buttonAutonomy.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
-        if (view.id == R.id.button_calculate) {
-            calculate()
-        } else if (view.id == R.id.button_autonomy) {
-            calculateAutonomy()
+        when (view.id) {
+            R.id.button_calculate -> calculate()
+            R.id.button_autonomy -> calculateAutonomy()
         }
     }
 
-    private fun isValid(): Boolean {
-        return (binding.editDistance.text.toString() != ""
-                && binding.editPrice.text.toString() != ""
-                && binding.editAutonomy.text.toString() != ""
-                && binding.editAutonomy.text.toString().toFloat() != 0f)
+    private fun convertToFloat(value: String): Float? {
+        return value.replace(",", ".").toFloatOrNull()
     }
 
     private fun calculate() {
-        if (isValid()) {
-            val distance = binding.editDistance.text.toString().toFloat()
-            val price = binding.editPrice.text.toString().toFloat()
-            val autonomy = binding.editAutonomy.text.toString().toFloat()
 
-            val totalvalue = (distance * price) / autonomy
+        val distance = convertToFloat(binding.editDistance.text.toString())
+        val price = convertToFloat(binding.editPrice.text.toString())
+        val autonomy = convertToFloat(binding.editAutonomy.text.toString())
 
-            binding.textTotalValue.text = "R$ ${"%.2f".format(totalvalue)}"
+        if (distance != null && price != null && autonomy != null && autonomy != 0f) {
+
+            val totalValue = (distance * price) / autonomy
+
+            binding.textTotalValue.text = "R$ ${"%.2f".format(totalValue)}"
+
         } else {
             Toast.makeText(this, R.string.validation_fill_all_fields, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun isValidAutonomy(): Boolean {
-        return (binding.editLiters.text.toString() != ""
-                && binding.editKm.text.toString() != ""
-                && binding.editLiters.text.toString().toFloat() != 0f)
-    }
     private fun calculateAutonomy() {
-        if (isValidAutonomy()) {
 
-            val liters = binding.editLiters.text.toString().toFloat()
-            val km = binding.editKm.text.toString().toFloat()
+        val liters = convertToFloat(binding.editLiters.text.toString())
+        val km = convertToFloat(binding.editKm.text.toString())
+
+        if (liters != null && km != null && liters != 0f) {
 
             val result = km / liters
 
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             binding.editAutonomy.setText("%.2f".format(result))
 
         } else {
-            Toast.makeText(this, "Preencha os campos de autonomia", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Preencha os campos corretamente", Toast.LENGTH_SHORT).show()
         }
     }
 }
